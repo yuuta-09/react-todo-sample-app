@@ -1,4 +1,18 @@
-const TodoInput = () => {
+import { useState } from "react"
+
+const TodoInput = ({onAdd}) => {
+  const [task, setTask] = useState('');
+  const handleChange = (event) => { setTask(event.target.value ); }
+
+  const handleSubmit = (event) => {
+    // ページのリロードを止める
+    event.preventDefault();
+    if(task === '') return;
+    onAdd(task);
+    // フォームの入力をリセット
+    setTask('');
+  }
+
   const formStyle = {
     display: 'flex',
   }
@@ -14,8 +28,8 @@ const TodoInput = () => {
   }
   
   return(
-    <form style={formStyle}>
-      <input placeholder="タスクを入力してください" style={inputStyle} />
+    <form style={formStyle} onSubmit={handleSubmit}>
+      <input placeholder="タスクを入力してください" style={inputStyle} onChange={handleChange} value={task} />
       <button type="submit" style={btnStyle}>追加</button>
     </form>
   );

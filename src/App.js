@@ -12,13 +12,25 @@ function App() {
   ];
 
   const [todos, setTodos] = useState(initialTodos);
+  const handleAdd = (text) => {
+    const newTodo = {
+      id: createId(),
+      text: text,
+      isFinished: false,
+    }
+    setTodos((todos) => [...todos, newTodo]);
+  };
+
+  const handleRemove = (deleteId) => {
+    setTodos(todos.filter((todo) => { return todo.id !== deleteId }));
+  }
 
   return (
     <div className="App">
       <div className="App-title">Todo管理アプリ</div>
       <div className="App-content">
-        <TodoInput />
-        <TodoList todos={todos} />
+        <TodoInput onAdd={handleAdd} />
+        <TodoList todos={todos} onRemove={handleRemove} />
       </div>
     </div>
   );
