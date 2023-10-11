@@ -25,12 +25,23 @@ function App() {
     setTodos(todos.filter((todo) => { return todo.id !== deleteId }));
   }
 
+  const handleToggle = (todoId) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === todoId) {
+        todo.isFinished = !(todo.isFinished);
+      }
+      return todo;
+    });
+
+    setTodos(newTodos);
+  }
+
   return (
     <div className="App">
       <div className="App-title">Todo管理アプリ</div>
       <div className="App-content">
         <TodoInput onAdd={handleAdd} />
-        <TodoList todos={todos} onRemove={handleRemove} />
+        <TodoList todos={todos} onRemove={handleRemove} onToggle={handleToggle} />
       </div>
     </div>
   );

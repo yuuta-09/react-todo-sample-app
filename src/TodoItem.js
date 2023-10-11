@@ -1,4 +1,4 @@
-const TodoItem = ({todo, onRemove}) => {
+const TodoItem = ({todo, onRemove, onToggle}) => {
   const itemStyle = {
     display: 'flex', alignItems: 'center',
     padding: 10,
@@ -10,14 +10,17 @@ const TodoItem = ({todo, onRemove}) => {
   const btnStyle = { cursor: 'pointer' }
 
   const handleClick = (event) => {
-    // ページのリロードを止める
     event.preventDefault();
     onRemove(todo.id);
+  }
+
+  const handleChange = (event) => {
+    onToggle(todo.id);
   }
   
   return(
     <div style={itemStyle}>
-      <input type="checkbox" checked={todo.isFinished} style={checkboxStyle} />
+      <input type="checkbox" checked={todo.isFinished} style={checkboxStyle} onChange={handleChange} />
       <div style={textStyle}>{todo.text}</div>
       <button style={btnStyle} onClick={handleClick} >削除</button>
     </div>
